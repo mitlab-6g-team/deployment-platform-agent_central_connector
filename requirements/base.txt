@@ -1,0 +1,5 @@
+django==4.1.1
+python-dotenv==1.0.0
+kafka-python==2.0.2
+psycopg2-binary==2.9.6
+requests==2.31.0
