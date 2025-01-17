@@ -88,3 +88,33 @@ def unsubscribe(request):
 
     response_dict = {"detail":"Topic unsubscribed successfully"}
     return JsonResponse(response_dict, status=200)
+
+
+@log_trigger("INFO")
+@require_POST
+def resubscribe(request):
+
+    print("aaa")
+    topic.unsubscribe()
+    print("bbb")
+    payload_dict = {}
+    topic_metadatas_list = TopicMetadataWriter.filter_by_agent(payload_dict)
+
+    for topic_metadatas_dict in topic_metadatas_list:
+        topic_name_str = topic_metadatas_dict['name']
+        type_str = topic_metadatas_dict['type']
+        payload_dict = {
+                        "name": topic_name_str,
+                        "type":type_str
+        }
+
+        TopicMetadataWriter.delete(payload_dict)
+        
+        payload_dict = {
+                        "topic_name": topic_name_str,
+                        "type":type_str
+        }
+        TopicSubscriber.subscribe(payload_dict)
+
+    response_dict = {"detail":"Topic resubscribed successfully"}
+    return JsonResponse(response_dict, status=200)

@@ -27,5 +27,9 @@ urlpatterns = [
     path(
         f'{CENTRAL_OPERATION_NAME}/TopicSubscriber/unsubscribe',
         TopicSubscriber.unsubscribe
+    ),
+    path(
+        f'{CENTRAL_OPERATION_NAME}/TopicSubscriber/resubscribe',
+        TopicSubscriber.resubscribe
     )
 ]
